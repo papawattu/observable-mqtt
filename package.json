@@ -4,7 +4,8 @@
   "description": "Observable MQTT Client",
   "main": ".",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test DEBUG=true mocha --require babel-polyfill --compilers js:babel-core/register --recursive ./src/**/*.spec.js",
+    "test-watch": "cross-env NODE_ENV=test DEBUG=true mocha --watch --require babel-polyfill --compilers js:babel-core/register --recursive ./src/**/*.spec.js"
   },
   "author": "Jamie Nuttall",
   "license": "ISC",
@@ -13,7 +14,11 @@
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "chai": "^4.1.2",
+    "cross-env": "^5.0.5",
     "mocha": "^3.5.3",
     "sinon": "^3.2.1"
+  },
+  "dependencies": {
+    "rxjs": "^5.4.3"
   }
 }

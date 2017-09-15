@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs'
+import _mqtt from 'mqtt'
 
-const ObservableMqtt = ({ mqtt, uri, options = {} }) => topic => {
+const ObservableMqtt = ({ mqtt = _mqtt, uri, options = {} }) => topic => {
     const client = mqtt.connect(uri, options)
     client.subscribe(topic)
     return {

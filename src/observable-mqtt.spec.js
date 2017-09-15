@@ -45,17 +45,28 @@ describe('Observable mqtt wrapper', () => {
         client.emit('message', 'mytopic', 'my message')
 
     })
-    it('Should send "my message 2" and receive from topic myothertopic', done => {
+    it('Should send message to topic myothertopic2', done => {
 
-        const { send, messages } = ObservableMqtt({ mqtt, uri: 'mqtt://fakeuri' })('myothertopic')
+        const { send } = ObservableMqtt({ mqtt, uri: 'mqtt://fakeuri' })('myothertopic2')
 
-        messages()
-            .subscribe(msg => {
-                assert(msg === 'my message 2')
-                done()
-            })
+        client.once('message', (topic, message) => {
+            assert.equal('myothertopic2', topic)
+            done()
+        })
 
-        send('my message 2')
+        send('my message 3')
+
+    })
+    it('Should send "my message 4" and receive message', done => {
+
+        const { send } = ObservableMqtt({ mqtt, uri: 'mqtt://fakeuri' })('myothertopic3')
+
+        client.once('message', (topic, message) => {
+            assert.equal(message, 'my message 4')
+            done()
+        })
+
+        send('my message 4')
 
     })
 })

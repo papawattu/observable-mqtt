@@ -21,7 +21,7 @@ describe('Observable mqtt wrapper', () => {
         const spy = sinon.spy(mqtt, 'connect')
         const sut = ObservableMqtt({ mqtt, uri: 'mqtt://fakeuri' })('topic')
 
-        assert(spy.withArgs('mqtt://fakeuri').calledOnce, 'mqtt connect method should be called once with args mqtt://fakeuri')
+        assert(spy.calledWith('mqtt://fakeuri'), 'mqtt connect method should be called once with args mqtt://fakeuri')
     })
     it('Should call send with "my message"', () => {
 
@@ -30,7 +30,7 @@ describe('Observable mqtt wrapper', () => {
 
         send('my message')
 
-        assert(spy.withArgs('topic', 'my message').calledOnce, 'mqtt send method should be called once with args faketopic and my message')
+        assert(spy.calledWith('topic', 'my message'), 'mqtt send method should be called once with args faketopic and my message')
     })
     it('Should receive "my message" from topic mytopic', done => {
 

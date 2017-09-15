@@ -8,6 +8,7 @@ const ObservableMqtt = ({ mqtt, uri, options = {} }) => topic => {
         messages: () => Observable.fromEvent(client, 'message', (topic, message) => ({ topic, message }))
             .filter(msg => msg.topic === topic)
             .map(msg => msg.message)
+            .share()
     }
 }
 

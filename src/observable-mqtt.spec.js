@@ -32,7 +32,7 @@ describe('Observable mqtt wrapper', () => {
 
         assert(spy.withArgs('topic', 'my message').calledOnce, 'mqtt send method should be called once with args faketopic and my message')
     })
-    it('Should call send and receive "my message" from topic mytopic', done => {
+    it('Should receive "my message" from topic mytopic', done => {
 
         const { send, messages } = ObservableMqtt({ mqtt, uri: 'mqtt://fakeuri' })('mytopic')
 
@@ -42,7 +42,20 @@ describe('Observable mqtt wrapper', () => {
                 done()
             })
 
-        send('my message')
+        client.emit('message', 'mytopic', 'my message')
+
+    })
+    it('Should send "my message 2" and receive from topic myothertopic', done => {
+
+        const { send, messages } = ObservableMqtt({ mqtt, uri: 'mqtt://fakeuri' })('myothertopic')
+
+        messages()
+            .subscribe(msg => {
+                assert(msg === 'my message 2')
+                done()
+            })
+
+        send('my message 2')
 
     })
 })

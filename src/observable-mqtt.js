@@ -10,7 +10,6 @@ const ObservableMqtt = ({ mqtt = _mqtt, uri, options = {} }) => topic => {
             .do(msg => console.log(msg))
             .filter(msg => msg.topic === topic)
             .map(msg => msg.message)
-            .share()
     }
 }
 

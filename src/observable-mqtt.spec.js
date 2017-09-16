@@ -69,4 +69,12 @@ describe('Observable mqtt wrapper', () => {
         send('my message 4')
 
     })
+    it('Should close connection on destroy', () => {
+
+        const { destroy } = ObservableMqtt({ mqtt, uri: 'mqtt://fakeuri' })('myothertopic3')
+        const spy = sinon.spy(client, 'end')
+        destroy()
+
+        assert(spy.calledOnce, 'client end should be called on destroy')
+    })
 })

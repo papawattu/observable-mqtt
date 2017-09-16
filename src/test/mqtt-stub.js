@@ -6,6 +6,7 @@ const client = new EventEmitter()
 client.publish = (topic, message) => client.emit('message', topic, message )
 client.subscribe = topic => undefined
 client.unsubscribe = topic => undefined
+client.end = () => undefined
 mqtt.connect = () => client
 
 client.on('message', (topic, message) => {

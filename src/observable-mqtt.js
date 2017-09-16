@@ -10,6 +10,7 @@ const ObservableMqtt = ({ mqtt = _mqtt, uri, options = {} }) => topic => {
     return {
         send: message => client.publish(topic, message),
         messages: () => messages,
+        destroy: () => client.end()
     }
 }
 
